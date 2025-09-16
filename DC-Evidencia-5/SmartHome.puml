@@ -1,0 +1,179 @@
+'éjecutar en Editor online de PlantUML
+'https://editor.plantuml.com/
+'
+@startuml SmartHome
+' ========================================
+'              CLASES
+' ========================================
+
+class Device {
+    - id : int
+    - name : string
+    - state_id : int
+    - device_type_id : int
+    - location_id : int
+    - home_id : int
+
+    + get_id() : int
+    + get_name() : string
+    + get_state_id() : int
+    + get_device_type_id() : int
+    + get_location_id() : int
+    + get_home_id() : int
+    + set_name() : None
+    + search_device_by_name() : bool
+}
+
+class State {
+    - id : int
+    - name : string
+
+    + get_id() : int
+    + get_name() : string
+    + set_name() : string
+}
+
+class DeviceType {
+    - id : int
+    - name : string
+    
+    + get_id() : int
+    + get_name() : string
+    + get_characteristics() : string
+    + set_name() : string
+    + set_characteristics() : None
+}
+
+class Location {
+    - id : int
+    - name : string
+    - home_id : int
+
+    + get_id() : int
+    + get_name() : string
+    + set_name() : None
+}
+
+class Home {
+    -  id : int
+    -  name : string
+
+    + get_id() : int
+    + get_name() : string
+    + set_name() : None
+}
+
+class User {
+    - email : string
+    - password : string
+    - name : string
+    - role_id : int
+
+    + get_name() : int
+    + get_email() : string
+    + set_rol_id() : int
+    + set_name() : None
+    + set_password() : None
+    + validate_credentials() : bool
+}
+
+class Role {
+    - id : int
+    - name : string
+
+    + get_id() : int
+    + get_name() : str
+   
+}
+
+class User_Home {
+    - user_email : string
+    - home_id : int
+    
+    + get_user_email() : string
+    + get_home_id() : int
+}
+
+class Automation {
+    - id : int
+    - name : string
+    - description : string
+    - active : bool
+    - home_id : int
+  
+    + get_id() : int
+    + get_name() : string
+    + get_description() : string
+    + get_active() : bool
+    + get_home_id() : int
+    + set_name() : None
+    + set_description() : None
+    + set_active() : None
+}
+
+class Device_Automation {
+    - device_id : int
+    - automation_id : int
+    - action : string
+
+    + get_device_id() : int
+    + get_automation_id() : int
+    + get_action() : string
+    + set_action() : None
+}
+
+class Event {
+    - id : int
+    - date_time_value : datetime
+    - description : string
+    - user_email : string
+    - device_id : int
+    - source : string
+
+    + get_id() : int
+    + get_datetime_value() : datetime
+    + get_description() : string
+    + get_device_id() : int
+    + get_user_email() : string
+    + get_source() : string
+    + set_description() : None
+
+}
+
+' ========================================
+'           RELACIONES UML
+' ========================================
+
+' --- Composición: Home contiene Devices y Locations ---
+Home *-- "0..*" Device : contiene
+Home *-- "0..*" Location : organiza
+
+' --- Asociación: Device definido por un tipo y estado ---
+Device --> "1" DeviceType : es de tipo
+Device --> "1" State : está en estado
+
+' --- Composición: Location pertenece a Home ---
+Location *-- "1" Home : parte de
+
+' --- Asociación: Device pertenece a Home ---
+Device --> "1" Home
+
+' --- Asociación: User tiene un Rol ---
+User --> "1" Role
+
+' --- Agregación: User y Home unidos por User_Home ---
+User o-- "0..*" User_Home
+Home o-- "0..*" User_Home
+
+' --- Asociación: Automation pertenece a un Home ---
+Automation --> "1" Home
+
+' --- Asociación: Device y Automation unidos por Device_Automation ---
+Device o-- "0..*" Device_Automation
+Automation o-- "0..*" Device_Automation
+
+' --- Asociación: Event ligado a Device y User ---
+Event --> "1" Device
+Event --> "0..1" User
+
+@enduml
