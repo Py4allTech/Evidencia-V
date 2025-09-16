@@ -10,7 +10,7 @@ import os
 # Agregar la carpeta models al path para poder importar las clases
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "models"))
 
-from models.rol import Role
+from models.role import Role
 
 
 class TestRole:
