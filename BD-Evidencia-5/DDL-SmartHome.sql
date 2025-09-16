@@ -1,8 +1,10 @@
 -- Crear base de datos
-CREATE DATABASE IF NOT EXISTS smarthome; 
+-- Comentado para que funcione el script vía online 
+-- CREATE DATABASE IF NOT EXISTS smarthome; 
 
 -- Usar la base de datos
-USE smarthome;
+-- Comentado para que funcione el script vía online
+-- USE smarthome;
 
 
 -- Tabla: role
