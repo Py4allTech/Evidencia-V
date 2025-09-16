@@ -78,3 +78,40 @@ CREATE TABLE device (
     FOREIGN KEY (location_id) REFERENCES location(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (home_id) REFERENCES home(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- Tabla: automation
+-- Automatizaciones del sistema
+CREATE TABLE automation (
+	id	INT AUTO_INCREMENT PRIMARY KEY,
+	name	VARCHAR(100) NOT NULL,
+	description	TEXT,
+	active	BOOLEAN DEFAULT FALSE,
+	home_id	INT NOT NULL,
+	
+  FOREIGN KEY (home_id) REFERENCES home(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Tabla: device_automation
+-- Relación entre dispositivos y automatizaciones
+CREATE TABLE device_automation (
+    device_id INT NOT NULL,
+    automation_id INT NOT NULL,
+    action VARCHAR(50) NOT NULL,
+       
+    FOREIGN KEY (device_id) REFERENCES device(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (automation_id) REFERENCES automation(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Tabla: event
+-- Log de eventos del sistema
+CREATE TABLE event (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date_time_value TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    description TEXT NOT NULL,
+    device_id INT,
+    user_email VARCHAR(255),
+    source VARCHAR(50) NOT NULL, 
+      
+    FOREIGN KEY (device_id) REFERENCES device(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (user_email) REFERENCES user(email) ON DELETE SET NULL ON UPDATE CASCADE
+); 
